@@ -1,0 +1,23 @@
+{
+  "users_session": {},
+  "messages": {
+    "chill": {},
+    "explee": {},
+    "dev": {},
+    "projects": {}
+  },
+  "channels": {
+    "chill": {
+      "name": "chill"
+    },
+    "explee": {
+      "name": "explee"
+    },
+    "dev": {
+      "name": "dev"
+    },
+    "projects": {
+      "name": "projects"
+    }
+  }
+}
