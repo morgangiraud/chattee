@@ -4,34 +4,38 @@ import { connect } from 'react-redux';
 
 import { login } from '../actions';
 
-var {
-  Card,
-  CardText,
-  RaisedButton
-} = mui;
+var { Card, CardText, RaisedButton } = mui;
 
-let Login = ({ dispatch }) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: () => {
+      dispatch(login());
+    }
+  }
+}
+
+let Login = ({ login }) => {
   return (
     <Card style={{
-      'maxWidth': '800px',
       'margin': '30px auto',
       'padding': '50px'
     }}>
       <CardText style={{
         'textAlign': 'center'
       }}>
-        To start chatting, log in!
+        <h1>Log yourself in Bro!</h1>
       </CardText>
       <RaisedButton 
-        style={{ 'display': 'block' }} 
-        onClick={ () => {
-          dispatch(login());
+        style={{ 
+          'display': 'block' 
         }} 
-        label="log in with Google"
+        onClick={login} 
+        label="With Google!"
+        primary={true}
       ></RaisedButton>
     </Card>
   )
 }
-Login = connect()(Login);
+Login = connect(null, mapDispatchToProps)(Login);
 
 export default Login;

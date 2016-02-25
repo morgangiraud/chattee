@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import Firebase from 'firebase';
 
@@ -12,13 +13,28 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  dispatch(checkSession())
-  return {};
+  return {
+    checkSession: () => {
+      dispatch(checkSession());
+    }
+  };
 }
 
-const Chattee = connect(
+class Chattee extends React.Component {
+  componentDidMount() {
+    this.props.checkSession();
+  }
+
+  render() {
+    return (
+        <App {...this.props} />
+    )
+  }
+}
+
+Chattee = connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Chattee);
 
 export default Chattee;

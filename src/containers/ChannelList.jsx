@@ -54,7 +54,11 @@ class ChannelList extends React.Component {
         return openChannel(channel);
       }
       return (
-        <Channel key={channel.key} channel={channel} onListItemClick={onListItemClick}/>
+        <Channel 
+          key={channel.key} 
+          channel={channel} 
+          onListItemClick={onListItemClick}
+        />
         );
     });
 

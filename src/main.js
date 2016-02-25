@@ -1,26 +1,20 @@
-require('./main.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Router, hashHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
+import { Provider } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
+
+require('./main.scss');
 import routes from './routes';
-
-import mui from 'material-ui';
-
 import chattee from './reducers';
+import rawTheme from './themes';
 
-const router = routerMiddleware(hashHistory)
-
-const Colors = mui.Styles.Colors;
-const muiTheme = mui.Styles.ThemeManager.getMuiTheme({
-  primary1Color: Colors.blue500,
-  primary2Color: Colors.blue700,
-  primary3Color: Colors.blue100,
-  accent1Color: Colors.pink400,
-});
+const router = routerMiddleware(hashHistory);
 
 const rootReducer = combineReducers({
   chattee,
@@ -28,7 +22,6 @@ const rootReducer = combineReducers({
 });
 const initState = {
   chattee: {
-    muiTheme,
     appLoading: true,
     user: null
   }
@@ -42,9 +35,15 @@ const middleWares = compose(
 );
 let store = createStore(rootReducer, initState, middleWares);
 
+const history = syncHistoryWithStore(hashHistory, store);
+
 ReactDOM.render(
   <Provider store={store}>
-    { routes }
+    <MuiThemeProvider muiTheme={getMuiTheme(rawTheme)} >
+      <Router history={history}>
+        { routes }
+      </Router>
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('container')
 );

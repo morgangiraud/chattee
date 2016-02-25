@@ -29,7 +29,12 @@ const App = ({
 
   return (
     <div>
-      <AppBar />
+      <AppBar 
+        title="Chattee! Chat happy!" 
+        titleStyle={{
+          'textAlign': 'center'
+        }}
+      />
       { view }
     </div>
   );
