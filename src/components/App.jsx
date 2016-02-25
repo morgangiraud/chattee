@@ -30,6 +30,9 @@ const App = ({
   return (
     <div>
       <AppBar 
+        onLeftIconButtonTouchTap={() => {
+          console.log("Doing nothing for the lulz!");
+        }}
         title="Chattee! Chat happy!" 
         titleStyle={{
           'textAlign': 'center'

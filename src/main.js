@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin(); // Enable click/tap event for mui
 
 require('./main.scss');
 import routes from './routes';
