@@ -1,20 +1,15 @@
 import React from 'react';
-import mui from 'material-ui';
+import { ListItem, Avatar } from 'material-ui';
 
-var {ListItem, Avatar} = mui;
-
-class Message extends React.Component {
-    constructor(props) {
-        super(props);
-        this.displayName = 'Message';
-    }
-    render() {
-        return (
-          <ListItem
-            leftAvatar={<Avatar src={this.props.message.profilePic} />}
-          >{this.props.message.message}</ListItem>
-        );
-    }
+const Message = ( { message } ) => {
+  return (
+    <ListItem
+    leftAvatar={<Avatar src={ message.profilePic } />}
+    style={{
+      maxWidth: 500
+    }}
+    >{ message.message }</ListItem>
+  );
 }
 
 export default Message;

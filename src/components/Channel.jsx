@@ -1,32 +1,22 @@
 import React from 'react';
-import mui from 'material-ui';
-import Actions from '../actions';
+import { ListItem } from 'material-ui';
 
-var {ListItem} = mui;
+const Channel = ({ channel, onListItemClick }) => {
+  let style = {};
 
-class Channel extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  if(channel.selected === true){
+    style.background = '#f0f0f0';
+  }
 
-    onClick(){
-      Actions.channelOpened(this.props.channel);
-    }
-
-    render() {
-        let style = {};
-
-        if(this.props.channel.selected === true){
-          style.background = '#f0f0f0';
-        }
-
-        return (
-          <ListItem
-            href={'#/chat/' + this.props.channel.key}
-            style={style}
-          >{this.props.channel.name}</ListItem>
-        );
-    }
+  return (
+    <ListItem
+      href={'#/chat/' + channel.key}
+      style={style}
+      onClick={onListItemClick}
+    >
+    {channel.name}
+    </ListItem>
+  );
 }
 
 export default Channel;
