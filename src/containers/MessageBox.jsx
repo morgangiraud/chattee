@@ -10,7 +10,7 @@ var {
 
 const mapStateToProps = (state) => {
   return {
-    message: state.chattee.message
+    message: state.messages.input
   }
 };
 

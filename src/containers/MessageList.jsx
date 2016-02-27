@@ -7,8 +7,8 @@ import Message from '../components/Message.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    messagesLoading: state.chattee.messagesLoading,
-    messages: state.chattee.messages
+    messagesLoading: state.messages.messagesLoading,
+    messages: state.messages.messageList
   }
 }
 

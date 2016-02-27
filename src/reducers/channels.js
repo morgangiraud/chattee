@@ -1,13 +1,19 @@
 import * as actions from '../actions/channels.js';
 import _ from 'lodash';
 
-import message from './message.js';
-
-const channels = (state = { channelList:[], selectedChannel:null }, action) => {
+const channels = (
+  state = { 
+    channelList:[], 
+    channelsLoading:true, 
+    selectedChannel:null 
+  }, 
+  action
+) => {
   switch(action.type){
     case actions.CHANNELS_GET:
       return {
         ...state,
+        channelsLoading: false,
         channelList: action.channelList
       };
     case actions.CHANNEL_SELECTED:

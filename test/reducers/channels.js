@@ -8,7 +8,7 @@ describe('channels reducer', () => {
   it('should return a default state', () => {
     const previousState = undefined;
     const action = {type: '@@INIT'};
-    const expected = { channelList:[], selectedChannel:null };
+    const expected = { channelList:[], channelsLoading:true, selectedChannel:null };
     
     const nextState = channels(previousState, action);
     expect(nextState).to.deep.equal(expected);
@@ -28,6 +28,7 @@ describe('channels reducer', () => {
         { key: 'test1', name: 'test1', selected: false }, 
         { key: 'test2', name: 'test2', selected: false }
       ], 
+      channelsLoading:false, 
       selectedChannel:null 
     };
 
@@ -40,7 +41,8 @@ describe('channels reducer', () => {
       channelList: [ 
         { key: 'test1', name: 'test1', selected: false }, 
         { key: 'test2', name: 'test2', selected: false }
-      ], 
+      ],
+      channelsLoading:false, 
       selectedChannel:null 
     };
     const action = { 
@@ -52,6 +54,7 @@ describe('channels reducer', () => {
         { key: 'test1', name: 'test1', selected: true }, 
         { key: 'test2', name: 'test2', selected: false }
       ], 
+      channelsLoading:false, 
       selectedChannel:  { key: 'test1', name: 'test1', selected: false }
     };
 

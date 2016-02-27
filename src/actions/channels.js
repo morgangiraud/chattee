@@ -1,3 +1,5 @@
+import Firebase from 'firebase';
+
 import { getMessages } from './index.js';
 
 export const getChannels = () => {
@@ -5,9 +7,9 @@ export const getChannels = () => {
     let channelsRef = new Firebase('https://amber-heat-1598.firebaseio.com/channels');
     channelsRef.once("value", (dataSnapshot)=> {
       let channels = dataSnapshot.val();
-      const chattee = getState().chattee;
+      const state = getState();
       
-      const selectedChannelKey = (_.has(chattee, 'selectedChannel') ? chattee.selectedChannel.key : undefined) || _.keys(channels)[0];
+      const selectedChannelKey = ( (_.has(state.channels, 'selectedChannel') && _.isObject(state.channels.selectedChannel)) ? state.channels.selectedChannel.key : undefined) || _.keys(channels)[0];
       let selectedChannel = channels[selectedChannelKey];
       if(selectedChannel){
         channels = _.map(channels, (channel, key) => {

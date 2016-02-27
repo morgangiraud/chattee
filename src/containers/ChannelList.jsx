@@ -8,7 +8,7 @@ import { openChannel, getChannels } from '../actions/channels.js';
 
 const mapStateToProps = (state) => {
   return {
-    channelsLoading: state.chattee.channelsLoading,
+    channelsLoading: state.channels.channelsLoading,
     channels: state.channels.channelList
   }
 }

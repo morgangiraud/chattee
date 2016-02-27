@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Firebase from 'firebase';
 
 import utils from '../utils.js';
 import App from '../components/App.jsx';

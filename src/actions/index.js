@@ -1,4 +1,6 @@
+import Firebase from 'firebase';
 import { push } from 'react-router-redux'
+
 import utils from '../utils'
 
 export const login = () => {
@@ -79,7 +81,7 @@ export const sessionChecked = (exist, cookie) => {
   return {
     type: SESSION_CHECKED,
     exist,
-    cookie
+    user: cookie.user
   }
 }
 
@@ -103,6 +105,10 @@ export const getMessages = () => {
     fChannelRef.once("value", (dataSnapshot)=> {
       let messages = dataSnapshot.val();
       let lastKey = _.last(_.keys(messages));
+      messages = _.map(messages, (message, key) => {
+        message.key = key;
+        return message;
+      });
       dispatch(messagesGet(messages));
 
       fChannelRef.orderByKey().startAt(lastKey).on('child_added', (msg) => {
@@ -132,10 +138,10 @@ export const messageReceived = (message) => {
     message
   }
 }
-export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+export const UPDATE_INPUT = 'UPDATE_INPUT';
 export const updateMessage = (message) => {
   return {
-    type: UPDATE_MESSAGE,
+    type: UPDATE_INPUT,
     message
   }
 }
@@ -146,13 +152,13 @@ export const sendMessage = (message) => {
       return dispatch(messageNotSent());
     }
 
-    const chattee = getState().chattee;
+    const state = getState();
     fChannelRef.push({
-      message: chattee.message,
+      message: state.messages.input,
       date: new Date().toUTCString(),
-      author: chattee.user.google.displayName,
-      userId: chattee.user.uid,
-      profilePic: chattee.user.google.profileImageURL
+      author: state.chattee.user.google.displayName,
+      userId: state.chattee.user.uid,
+      profilePic: state.chattee.user.google.profileImageURL
     })
     dispatch(messageSent());
   };
