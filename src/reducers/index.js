@@ -22,30 +22,6 @@ const chattee = (state = {}, action) => {
         ...state,
         user: action.user
       };
-    case actions.CHANNELS_GET:
-      return {
-        ...state,
-        channels: action.channels
-      };
-    case actions.CHANNEL_SELECTED:
-      let channels = _.mapValues(state.channels, (channel) => {
-        if(channel.key === action.selectedChannel.key){
-          return {
-            ...channel,
-            selected: true
-          }
-        }
-        return {
-          ...channel,
-          selected: false
-        }}
-      );
-
-      return {
-        ...state,
-        channels,
-        selectedChannel: action.selectedChannel
-      };
     case actions.MESSAGES_GET:
       let messages = _.map(action.messages, (message, key) => {
         message.key = key;

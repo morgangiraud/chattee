@@ -14,12 +14,14 @@ injectTapEventPlugin(); // Enable click/tap event for mui
 require('./main.scss');
 import routes from './routes';
 import chattee from './reducers';
+import channels from './reducers/channels.js';
 import rawTheme from './themes';
 
 const router = routerMiddleware(hashHistory);
 
 const rootReducer = combineReducers({
   chattee,
+  channels,
   routing: routerReducer
 });
 const initState = {

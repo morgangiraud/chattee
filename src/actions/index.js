@@ -83,8 +83,23 @@ export const sessionChecked = (exist, cookie) => {
   }
 }
 
+let fChannelRef = null
 export const getMessages = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const selectedChannel = getState().channels.selectedChannel;
+    if(!selectedChannel){
+      return;
+    }
+
+    if(fChannelRef){
+      if(fChannelRef.toString() != 'https://amber-heat-1598.firebaseio.com/messages/' + selectedChannel.key){
+        fChannelRef.off();
+        fChannelRef = new Firebase('https://amber-heat-1598.firebaseio.com/messages/' + selectedChannel.key);
+      }
+    } else {
+      fChannelRef = new Firebase('https://amber-heat-1598.firebaseio.com/messages/' + selectedChannel.key);
+    }
+
     fChannelRef.once("value", (dataSnapshot)=> {
       let messages = dataSnapshot.val();
       let lastKey = _.last(_.keys(messages));
@@ -154,63 +169,5 @@ export const MESSAGE_NOT_SENT = 'MESSAGE_NOT_SENT';
 export const messageNotSent = () => {
   return {
     type: MESSAGE_NOT_SENT,
-  }
-}
-
-
-// ----------------------------
-// Channel actions
-// ----------------------------
-export const getChannels = () => {
-  return (dispatch, getState) => {
-    let fChannelsRef = new Firebase('https://amber-heat-1598.firebaseio.com/channels');
-    fChannelsRef.once("value", (dataSnapshot)=> {
-      let channels = dataSnapshot.val();
-      const chattee = getState().chattee;
-      
-      const selectedChannelKey = (_.has(chattee, 'selectedChannel') ? chattee.selectedChannel.key : undefined) || _.keys(channels)[0];
-      let selectedChannel = channels[selectedChannelKey];
-      if(selectedChannel){
-        channels = _.mapValues(channels, (channel, key)=>{
-          channel.key = key;
-          if(channel === selectedChannel){
-            channel.selected = true;
-          } else {
-            channel.selected = false;
-          }
-          return channel;
-        });
-      }
-      dispatch(channelsGet(channels));
-      dispatch(openChannel(selectedChannel))
-    });
-    return;
-  }
-}
-export const CHANNELS_GET = 'CHANNELS_GET';
-export const channelsGet = (channels) => {
-  return {
-    type: CHANNELS_GET,
-    channels
-  }
-}
-
-let fChannelRef = null
-export const openChannel = (selectedChannel) => {
-  return (dispatch) => {
-    if(fChannelRef){
-      fChannelRef.off();
-    }
-    fChannelRef = new Firebase('https://amber-heat-1598.firebaseio.com/messages/' + selectedChannel.key);
-
-    dispatch(channelSelected(selectedChannel));
-    dispatch(getMessages());
-  }
-}
-export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
-export const channelSelected = (selectedChannel) => {
-  return {
-    type: CHANNEL_SELECTED,
-    selectedChannel
   }
 }

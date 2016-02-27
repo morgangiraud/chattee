@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Card, List, CircularProgress } from 'material-ui';
 
 import Channel from '../components/Channel.jsx';
-import { openChannel, getChannels } from '../actions';
+import { openChannel, getChannels } from '../actions/channels.js';
 
 const mapStateToProps = (state) => {
   return {
     channelsLoading: state.chattee.channelsLoading,
-    channels: state.chattee.channels
+    channels: state.channels.channelList
   }
 }
 
