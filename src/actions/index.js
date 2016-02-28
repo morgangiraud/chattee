@@ -78,10 +78,11 @@ export const checkSession = () => {
 
 export const SESSION_CHECKED = 'SESSION_CHECKED';
 export const sessionChecked = (exist, cookie) => {
+  const user = (cookie === undefined) ? undefined : cookie.user
   return {
     type: SESSION_CHECKED,
     exist,
-    user: cookie.user
+    user: user
   }
 }
 

@@ -2,7 +2,7 @@ const jsdom = require('jsdom').jsdom;
 
 const exposedProperties = ['window', 'navigator', 'document'];
 
-global.document = jsdom('');
+global.document = jsdom('<!doctype html><html><body></body></html>');
 global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
@@ -10,10 +10,9 @@ Object.keys(document.defaultView).forEach((property) => {
     global[property] = document.defaultView[property];
   }
 });
-
+// global.navigator = global.window.navigator
 global.navigator = {
-  userAgent: 'node.js'
-  // userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.155 Safari/537.36'
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.0.0 Safari/538.1'
 };
 
 var documentRef = document;

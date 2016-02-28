@@ -30,6 +30,7 @@ const App = ({
   return (
     <div>
       <AppBar 
+        className="test-test"
         onLeftIconButtonTouchTap={() => {
           console.log("Doing nothing for the lulz!");
         }}
