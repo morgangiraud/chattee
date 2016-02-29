@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 
 import channels from '../../src/reducers/channels.js';
 import * as actions from '../../src/actions/channels.js';

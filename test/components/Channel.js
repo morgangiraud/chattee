@@ -10,7 +10,7 @@ describe('<Channel />', () => {
   it('simulates click events', () => {
     const onListItemClick = sinon.spy();
     const wrapper = shallow(
-      <Channel channel="test" onListItemClick={onListItemClick} />
+      <Channel channel={{ name:'test' }} onListItemClick={onListItemClick} />
     );
     wrapper.find('ListItem').simulate('click');
     expect(onListItemClick.calledOnce).to.equal(true);

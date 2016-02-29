@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { getMessages } from './index.js';
 
 export const getChannels = () => {
+  let channelsRef = new Firebase('https://amber-heat-1598.firebaseio.com/channels');
   return (dispatch, getState) => {
-    let channelsRef = new Firebase('https://amber-heat-1598.firebaseio.com/channels');
     channelsRef.once("value", (dataSnapshot)=> {
       let channels = dataSnapshot.val();
       const state = getState();

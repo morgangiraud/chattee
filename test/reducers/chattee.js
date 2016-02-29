@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 
 import chattee from '../../src/reducers/chattee.js';
 import * as actions from '../../src/actions';

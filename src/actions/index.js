@@ -33,7 +33,7 @@ export const auth = (provider) => {
       }
 
       const user = getUserFromAuthData(authData);
-      const userRef = mainRef.child("users").child(authData.uid);
+      const userRef = mainRef.child("users").child(user.uid);
       userRef.once("value", (dataSnapshot) => {
         if(!dataSnapshot.val()){
           userRef.set(user); 
