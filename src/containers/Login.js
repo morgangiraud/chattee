@@ -36,6 +36,9 @@ let Login = ({ login }) => {
     </Card>
   )
 }
-Login = connect(null, mapDispatchToProps)(Login);
 
-export default Login;
+Login.propTypes = {
+  login: React.PropTypes.func
+}
+
+export default  connect(null, mapDispatchToProps)(Login);

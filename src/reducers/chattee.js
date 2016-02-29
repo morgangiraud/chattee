@@ -12,10 +12,9 @@ const chattee = (state = { appLoading: true, user: null }, action) => {
       } else {
         return {
           ...state,
-          appLoading: false,
+          appLoading: false
         }
       }
-      return state;
     case actions.ADD_USER:
       return {
         ...state,

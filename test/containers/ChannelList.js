@@ -7,7 +7,7 @@ import sinon from 'sinon';
 
 import chattee from '../../src/reducers';
 import channels from '../../src/reducers/channels.js';
-import ChannelList from '../../src/containers/ChannelList.jsx';
+import ChannelList from '../../src/containers/ChannelList.js';
 
 describe('<ChannelList />', () => {
   it('calls componentDidMount', () => {

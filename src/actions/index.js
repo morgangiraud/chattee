@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 import { push } from 'react-router-redux'
+import _ from 'lodash';
 
 import utils from '../utils'
 
@@ -43,7 +44,7 @@ export const addUser = (user) => {
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const loginFailed = () => {
   return {
-    type: LOGIN_FAILED,
+    type: LOGIN_FAILED
   };
 }
 
@@ -155,7 +156,7 @@ export const sendMessage = (message) => {
 
     const state = getState();
     fChannelRef.push({
-      message: state.messages.input,
+      message,
       date: new Date().toUTCString(),
       author: state.chattee.user.google.displayName,
       userId: state.chattee.user.uid,
@@ -168,13 +169,13 @@ export const sendMessage = (message) => {
 export const MESSAGE_SENT = 'MESSAGE_SENT';
 export const messageSent = () => {
   return {
-    type: MESSAGE_SENT,
+    type: MESSAGE_SENT
   }
 }
 
 export const MESSAGE_NOT_SENT = 'MESSAGE_NOT_SENT';
 export const messageNotSent = () => {
   return {
-    type: MESSAGE_NOT_SENT,
+    type: MESSAGE_NOT_SENT
   }
 }

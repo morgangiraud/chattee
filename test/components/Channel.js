@@ -4,7 +4,7 @@ import { ListItem } from 'material-ui';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import Channel from '../../src/components/Channel.jsx';
+import Channel from '../../src/components/Channel.js';
 
 describe('<Channel />', () => {
   it('simulates click events', () => {

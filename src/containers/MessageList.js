@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Card, List, CircularProgress } from 'material-ui';
 
-import Message from '../components/Message.jsx';
+import Message from '../components/Message.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -52,6 +52,9 @@ let MessageList = ({
   );
 }
 
-MessageList = connect(mapStateToProps)(MessageList)
+MessageList.propTypes = {
+  messagesLoading: React.PropTypes.bool,
+  messages: React.PropTypes.array
+}
 
-export default MessageList;
+export default connect(mapStateToProps)(MessageList)

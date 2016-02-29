@@ -3,7 +3,7 @@ import React from 'react';
 import { CircularProgress, AppBar } from 'material-ui';
 import { expect } from 'chai';
 
-import App from '../../src/components/App.jsx';
+import App from '../../src/components/App.js';
 
 describe('<App />', () => {
   it('should render one <CircularProgress /> and one <AppBar /> component', () => {

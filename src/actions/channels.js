@@ -1,5 +1,5 @@
 import Firebase from 'firebase';
-
+import _ from 'lodash';
 import { getMessages } from './index.js';
 
 export const getChannels = () => {

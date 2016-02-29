@@ -1,10 +1,9 @@
 import React from 'react';
-import mui from 'material-ui';
+import { CircularProgress, AppBar } from 'material-ui';
 
-var { 
-  CircularProgress,
-  AppBar
-} = mui;
+const doingNothing = () => {
+  console.log("Doing nothing for the lulz!");
+}
 
 const App = ({
   appLoading,
@@ -31,9 +30,7 @@ const App = ({
     <div>
       <AppBar 
         className="test-test"
-        onLeftIconButtonTouchTap={() => {
-          console.log("Doing nothing for the lulz!");
-        }}
+        onLeftIconButtonTouchTap={doingNothing}
         title="Chattee! Chat happy!" 
         titleStyle={{
           'textAlign': 'center'
@@ -42,6 +39,11 @@ const App = ({
       { view }
     </div>
   );
+}
+
+App.propTypes = {
+  appLoading: React.PropTypes.bool,
+  children: React.PropTypes.element
 }
 
 export default App

@@ -16,7 +16,7 @@ const channels = (
         channelsLoading: false,
         channelList: action.channelList
       };
-    case actions.CHANNEL_SELECTED:
+    case actions.CHANNEL_SELECTED: {
       let channelList = _.map(state.channelList, (channel) => {
         if(channel.key === action.selectedChannel.key){
           return {
@@ -35,6 +35,7 @@ const channels = (
         channelList,
         selectedChannel: action.selectedChannel
       };
+    }
     default:
       return state;
   }

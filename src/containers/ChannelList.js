@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Card, List, CircularProgress } from 'material-ui';
 
-import Channel from '../components/Channel.jsx';
+import Channel from '../components/Channel.js';
 import { openChannel, getChannels } from '../actions/channels.js';
 
 const mapStateToProps = (state) => {
@@ -50,7 +50,7 @@ class ChannelList extends React.Component {
     }
 
     var channelNodes = _.map(channels, (channel) => {
-      let onListItemClick = (e) => {
+      let onListItemClick = () => {
         return openChannel(channel);
       }
       return (
@@ -72,6 +72,11 @@ class ChannelList extends React.Component {
   }
 }
 
-ChannelList = connect(mapStateToProps, mapDispatchToProps)(ChannelList);
+ChannelList.propTypes = {
+  channelsLoading: React.PropTypes.bool,
+  channels: React.PropTypes.array,
+  openChannel: React.PropTypes.func,
+  getChannels: React.PropTypes.func
+}
 
-export default ChannelList;
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

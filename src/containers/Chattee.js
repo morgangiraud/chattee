@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import utils from '../utils.js';
-import App from '../components/App.jsx';
+import App from '../components/App.js';
 import { checkSession } from '../actions';
 
 const mapStateToProps = (state) => {
@@ -31,9 +30,11 @@ class Chattee extends React.Component {
   }
 }
 
-Chattee = connect(
+Chattee.propTypes = {
+  checkSession: React.PropTypes.func
+}
+
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Chattee);
-
-export default Chattee;

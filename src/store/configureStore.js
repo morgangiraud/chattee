@@ -1,5 +1,5 @@
 import { hashHistory } from 'react-router'
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
