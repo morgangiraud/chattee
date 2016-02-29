@@ -15,10 +15,15 @@ const chattee = (state = { appLoading: true, user: null }, action) => {
           appLoading: false
         }
       }
-    case actions.ADD_USER:
+    case actions.LOG_IN:
       return {
         ...state,
         user: action.user
+      };
+    case actions.LOG_OUT:
+      return {
+        ...state,
+        user: null
       };
     default:
       return state;

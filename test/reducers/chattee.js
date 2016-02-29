@@ -42,7 +42,7 @@ describe('chattee reducer', () => {
   it('should add a user', () => {
     const previousState = { appLoading: false, user: null };
     const action = { 
-      type: actions.ADD_USER, 
+      type: actions.LOG_IN, 
       user: { firstname: 'test' }
     };
     const expected = { appLoading: false, user: { firstname: 'test' } };

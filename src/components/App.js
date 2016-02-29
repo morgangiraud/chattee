@@ -1,13 +1,13 @@
 import React from 'react';
+import IconButton from 'material-ui/lib/icon-button';
 import { CircularProgress, AppBar } from 'material-ui';
-
-const doingNothing = () => {
-  console.log("Doing nothing for the lulz!");
-}
+import ActionAllOut from 'material-ui/lib/svg-icons/action/all-out';
 
 const App = ({
   appLoading,
-  children
+  children,
+  logout,
+  user
 }) => {
   let view = null;
   if(appLoading){
@@ -21,7 +21,7 @@ const App = ({
           display: 'block'
         }}
       ></CircularProgress>
-    );
+    );  
   } else {
     view = children
   }
@@ -30,7 +30,15 @@ const App = ({
     <div>
       <AppBar 
         className="test-test"
-        onLeftIconButtonTouchTap={doingNothing}
+        iconElementLeft={
+          <IconButton style={{
+            display: user ? '' : 'none'
+          }}
+          onTouchTap={logout}
+          >
+            <ActionAllOut />
+          </IconButton>
+        }
         title="Chattee! Chat happy!" 
         titleStyle={{
           'textAlign': 'center'
@@ -43,7 +51,9 @@ const App = ({
 
 App.propTypes = {
   appLoading: React.PropTypes.bool,
-  children: React.PropTypes.element
+  children: React.PropTypes.element,
+  logout: React.PropTypes.func,
+  user: React.PropTypes.object
 }
 
 export default App

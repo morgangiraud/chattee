@@ -2,41 +2,67 @@ import Firebase from 'firebase';
 import { push } from 'react-router-redux'
 import _ from 'lodash';
 
-import utils from '../utils'
+let mainRef = new Firebase('https://amber-heat-1598.firebaseio.com/');
 
-export const login = () => {
+const getUserFromAuthData = (authData) => {
+  let user = {
+    uid: authData.auth.uid,
+    provider: authData.auth.provider
+  };
+  if(authData.auth.provider === 'google'){
+    _.assign(user, {
+      displayName: authData.google.displayName,
+      profileImageURL: authData.google.profileImageURL
+    });
+  } else if(authData.auth.provider === 'twitter'){
+    _.assign(user, {
+      displayName: authData.twitter.displayName,
+      profileImageURL: authData.twitter.profileImageURL
+    });
+  }
+
+  return user;
+}
+
+export const auth = (provider) => {
   return (dispatch) => {
-    let firebaseRef = new Firebase('https://amber-heat-1598.firebaseio.com/');
-    firebaseRef.authWithOAuthPopup('google', (err, user) => {
-      if(err){
+    mainRef.authWithOAuthPopup(provider, (err, authData) => {
+      if(err || !authData){
         dispatch(loginFailed());
         return;
       }
 
-      let usersSessionRef = new Firebase('https://amber-heat-1598.firebaseio.com/users_session');
-      let sessionRef = usersSessionRef.push({
-        date: new Date().toUTCString()
+      const user = getUserFromAuthData(authData);
+      const userRef = mainRef.child("users").child(authData.uid);
+      userRef.once("value", (dataSnapshot) => {
+        if(!dataSnapshot.val()){
+          userRef.set(user); 
+        }
+
+        dispatch(login(user));
+        setTimeout(() => {
+          dispatch(push('/chat'));
+        }, 0);
       });
-
-      let sessionId = sessionRef.key();
-      let cookie = {
-        user,
-        sessionId
-      };
-      utils.createCookie("react-session-id", JSON.stringify(cookie), 1);
-
-      dispatch(addUser(user, sessionId));
-      setTimeout(() => {
-        dispatch(push('/chat'));
-      }, 0);
     });
   }
 }
 
-export const ADD_USER = 'ADD_USER';
-export const addUser = (user) => {
+export const LOG_OUT = 'LOG_OUT';
+export const logout = () => {
+  return (dispatch) => {
+    mainRef.unauth();
+    dispatch({type: LOG_OUT});
+    setTimeout(() => {
+      dispatch(push('/'));
+    }, 0)
+  }
+}
+
+export const LOG_IN = 'LOG_IN';
+export const login = (user) => {
   return {
-    type: ADD_USER,
+    type: LOG_IN,
     user
   };
 }
@@ -50,25 +76,14 @@ export const loginFailed = () => {
 
 export const checkSession = () => {
   return (dispatch) => {
-    let cookie = utils.readCookie("react-session-id");
-    if(cookie){
-      cookie = JSON.parse(cookie);
-      let sessionIdRef = new Firebase('https://amber-heat-1598.firebaseio.com/users_session/' + cookie.sessionId);        
-      sessionIdRef.once("value", (snapshot) => {
-        let exist = snapshot.exists();
-        dispatch(sessionChecked(exist, cookie));
-        if(exist){
-          setTimeout(() => {
-            dispatch(push('/chat'));
-          }, 0);     
-        } else {
-          setTimeout(() => {
-            dispatch(push('/'));
-          }, 0);
-        }
-      })
+    const authData = mainRef.getAuth();
+    if(authData){
+      const user = getUserFromAuthData(authData);
+      dispatch(sessionChecked(true, user));
+      setTimeout(() => {
+        dispatch(push('/chat'));
+      }, 0);     
     } else {
-      utils.eraseCookie("react-session-id");
       dispatch(sessionChecked());
       setTimeout(() => {
         dispatch(push('/'));
@@ -78,12 +93,11 @@ export const checkSession = () => {
 }
 
 export const SESSION_CHECKED = 'SESSION_CHECKED';
-export const sessionChecked = (exist, cookie) => {
-  const user = (cookie === undefined) ? undefined : cookie.user
+export const sessionChecked = (exist, user) => {
   return {
     type: SESSION_CHECKED,
     exist,
-    user: user
+    user
   }
 }
 
@@ -158,9 +172,9 @@ export const sendMessage = (message) => {
     fChannelRef.push({
       message,
       date: new Date().toUTCString(),
-      author: state.chattee.user.google.displayName,
+      author: state.chattee.user.displayName,
       userId: state.chattee.user.uid,
-      profilePic: state.chattee.user.google.profileImageURL
+      profilePic: state.chattee.user.profileImageURL
     })
     dispatch(messageSent());
   };
