@@ -1,17 +1,17 @@
 {
-  "name": "react-flux-webpack-firebase",
-  "version": "1.0.0",
+  "name": "chattee",
+  "version": "0.1.0",
   "description": "",
   "main": "public/main.js",
   "scripts": {
     "test": "npm run test-mocha && npm run test-cucumber",
-    "test-mocha": "NODE_ENV=test mocha",
-    "test-cucumber": "NODE_ENV=test ./node_modules/.bin/cucumber.js --require test/setup.js test/features -r test/features/step_definitions --compiler js:babel-register",
+    "test-mocha": "NODE_ENV=test mocha || true",
+    "test-cucumber": "NODE_ENV=test ./node_modules/.bin/cucumber.js --require test/setup.js test/features -r test/features/step_definitions --compiler js:babel-register || true",
     "dev": "webpack-dev-server --progress --colors --hot",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Morgan Giraud <morgan@explee.com>",
+  "license": "MIT",
   "dependencies": {
     "firebase": "^2.4.0",
     "lodash": "^4.5.1",

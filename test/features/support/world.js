@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import React from 'react';
 import { Router, createMemoryHistory } from 'react-router'
@@ -33,7 +33,7 @@ let World = module.exports = function(){
     </Provider>
   );
 
-  this.visit = function(path, callback){
+  this.visit = function(path){
     store.dispatch(push(path));
   };
 };
