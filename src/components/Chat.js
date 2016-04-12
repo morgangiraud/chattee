@@ -1,9 +1,9 @@
 import React from 'react';
-import MessageList from '../containers/MessageList.jsx';
-import ChannelList from '../containers/ChannelList.jsx';
-import MessageBox from '../containers/MessageBox.jsx';
+import MessageList from '../containers/MessageList.js';
+import ChannelList from '../containers/ChannelList.js';
+import MessageBox from '../containers/MessageBox.js';
 
-const Chat = (channel) => {
+const Chat = ({ channel }) => {
   return (
     <div>
       <div style={{
@@ -19,6 +19,10 @@ const Chat = (channel) => {
       <MessageBox />
     </div> 
   );
+}
+
+Chat.propTypes = {
+  channel: React.PropTypes.object
 }
 
 export default Chat;
