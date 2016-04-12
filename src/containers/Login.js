@@ -2,19 +2,19 @@ import React from 'react';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 
-import { login } from '../actions';
+import { auth } from '../actions';
 
 var { Card, CardText, RaisedButton } = mui;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: () => {
-      dispatch(login());
+    auth: (provider) => {
+      dispatch(auth(provider));
     }
   }
 }
 
-let Login = ({ login }) => {
+let Login = ({ auth }) => {
   return (
     <Card style={{
       'margin': '30px auto',
@@ -27,15 +27,28 @@ let Login = ({ login }) => {
       </CardText>
       <RaisedButton 
         style={{ 
-          'display': 'block' 
+          'display': 'block',
+          'margin': '10px'
         }} 
-        onClick={login} 
+        onClick={() => auth('google')} 
         label="With Google!"
+        primary={true}
+      ></RaisedButton>
+      <RaisedButton 
+        style={{ 
+          'display': 'block',
+          'margin': '10px'
+        }} 
+        onClick={() => auth('twitter')} 
+        label="With Twitter!"
         primary={true}
       ></RaisedButton>
     </Card>
   )
 }
-Login = connect(null, mapDispatchToProps)(Login);
 
-export default Login;
+Login.propTypes = {
+  auth: React.PropTypes.func
+}
+
+export default  connect(null, mapDispatchToProps)(Login);

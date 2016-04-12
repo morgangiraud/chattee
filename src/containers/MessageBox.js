@@ -10,7 +10,7 @@ var {
 
 const mapStateToProps = (state) => {
   return {
-    message: state.chattee.message
+    message: state.messages.input
   }
 };
 
@@ -36,7 +36,6 @@ let MessageBox = ({
   onChange,
   onKeyUp
 }) => {
-  let input;
   return (
     <Card style={{
       maxWidth: 1200,
@@ -61,9 +60,10 @@ let MessageBox = ({
     </Card>
   );
 }
-MessageBox = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MessageBox);
 
-export default MessageBox
+MessageBox.propTypes = {
+  message: React.PropTypes.string,
+  onKeyUp: React.PropTypes.func,
+  onChange: React.PropTypes.func
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MessageBox);

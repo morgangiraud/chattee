@@ -19,4 +19,9 @@ const Channel = ({ channel, onListItemClick }) => {
   );
 }
 
+Channel.propTypes = {
+  channel: React.PropTypes.object,
+  onListItemClick: React.PropTypes.func
+}
+
 export default Channel;

@@ -12,4 +12,8 @@ const Message = ( { message } ) => {
   );
 }
 
+Message.propTypes = {
+  message: React.PropTypes.object
+}
+
 export default Message;
